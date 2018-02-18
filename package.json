@@ -14,6 +14,7 @@
     "highland": "^3.0.0-beta.5"
   },
   "devDependencies": {
+    "greenkeeper-lockfile": "^1.13.2",
     "nodemon": "^1.15.0",
     "standard": "^10.0.3",
     "tap-spec": "^4.1.1",

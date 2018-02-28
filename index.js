@@ -14,6 +14,12 @@ const ap = xs => fns => fns
   .map(fn => xs.fork().map(fn))
   .parallel(Infinity)
 
+// Traversable
+// traverse :: Applicative f, Traversable t => t a ~> (TypeRep f, a -> f b) -> f (t b)
+const traverse = (of, f) => xs => xs
+  .reduce((acc, x) => lift(append)(f(x), acc), of([]))
+  .sequence()
+
 const append = y => xs => xs.concat(y)
 
 const lift = f => (...xs) => xs
@@ -23,6 +29,7 @@ module.exports = {
   empty,
   contramap,
   ap,
+  traverse,
   append,
   lift
 }

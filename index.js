@@ -10,9 +10,13 @@ const contramap = f => xs => xs.map(g => x => g(f(x)))
 
 // Apply
 // ap :: Apply f => f a ~> f (a -> b) -> f b
-const ap = xs => fns => fns
-  .map(fn => xs.fork().map(fn))
-  .parallel(Infinity)
+const ap = a => u => h([
+  a.map(a => ({ a })),
+  u.map(u => ({ u }))
+]).merge()
+  .scan1((x, y) => Object.assign({}, x, y))
+  .filter(({ a, u }) => a && u)
+  .map(({ a, u }) => u(a))
 
 // Traversable
 // traverse :: Applicative f, Traversable t => t a ~> (TypeRep f, a -> f b) -> f (t b)

@@ -1,6 +1,6 @@
 const { deepEqual } = require('assert')
 const h = require('highland')
-const { ap, contramap, traverse } = require('../index')
+const { traverse } = require('../index')
 
 const log = msg => (...msgs) => h.log(`${msg}:`, ...msgs)
 

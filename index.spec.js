@@ -73,5 +73,32 @@ test('highland-fantasy', assert => {
       .done(assert.end)
   })
 
+  test('traverse', assert => {
+    const { traverse } = require('./index')
+
+    assert.equal(typeof traverse, 'function', 'is a function')
+
+    const t = x => h.of(x + 1)
+    const naturality = h([ 0, 1, 2 ])
+      .through(traverse(h.of, t))
+      .tap(xs => assert.deepEqual(xs, [ 1, 2, 3 ], 'naturality'))
+      .errors(err => assert.ifError(err))
+
+    const identity = h([ 0, 1, 2 ])
+      .through(traverse(h.of, h.of))
+      .tap(xs => assert.deepEqual(xs, [ 0, 1, 2 ], 'identity'))
+      .errors(err => assert.ifError(err))
+
+    const composition = h.of({})
+      .errors(err => assert.ifError(err))
+      // .collect()
+      // .tap(xs => assert.deepEqual(xs, [1], 'composition'))
+
+    h([naturality, identity, composition])
+      .merge()
+      .errors(err => assert.ifError(err))
+      .done(assert.end)
+  })
+
   assert.end()
 })

@@ -1,6 +1,6 @@
 const { deepEqual } = require('assert')
 const h = require('highland')
-const { ap } = require('../index')
+const { ap, contramap } = require('../index')
 
 const log = msg => (...msgs) => h.log(msg, ...msgs)
 
@@ -16,11 +16,11 @@ const split = str => x => x.split(str)
 const reverse = x => x.reverse()
 const join = str => x => x.join(str)
 
-h.of(f => g => h => i => x => f(g(h(i(x)))))
-  .through(ap(h.of(toUpperCase)))
-  .through(ap(h.of(join(''))))
-  .through(ap(h.of(reverse)))
-  .through(ap(h.of(split(''))))
+h.of(x => x)
+  .through(contramap(toUpperCase))
+  .through(contramap(join('')))
+  .through(contramap(reverse))
+  .through(contramap(split('')))
   .through(ap(h([ 'ih', 'eyb' ])))
   .collect()
   .tap(log('greetings'))
@@ -29,9 +29,9 @@ h.of(f => g => h => i => x => f(g(h(i(x)))))
 const add = y => x => x + y
 const times = y => x => x * y
 
-h.of(f => g => x => f(g(x)))
-  .through(ap(h.of((add(1)))))
-  .through(ap(h.of(times(4))))
+h.of(g => x => g(x))
+  .through(ap(h.of(add(1))))
+  .through(contramap(times(4)))
   .through(ap(h([ 1, 3 ])))
   .collect()
   .tap(log('math'))

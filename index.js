@@ -5,11 +5,11 @@ const h = require('highland')
 const empty = () => h([])
 
 // Contravariant
-// contramap :: Contravariant f => f a ~> (b -> a) -> f b
+// contramap :: Contravariant f => (b -> a) -> f a -> f b
 const contramap = f => xs => xs.map(g => x => g(f(x)))
 
 // Apply
-// ap :: Apply f => f a ~> f (a -> b) -> f b
+// ap :: Apply f => f (a -> b) -> f a -> f b
 const ap = a => u => h([
   a.map(a => ({ a })),
   u.map(u => ({ u }))
@@ -24,8 +24,10 @@ const traverse = (of, f) => xs => xs
   .reduce((acc, x) => lift(append)(f(x), acc), of([]))
   .sequence()
 
+// append :: Semigroup a => a -> a -> a
 const append = y => xs => xs.concat(y)
 
+// lift :: Apply f => f (a... -> b) -> f a... -> f b
 const lift = f => (...xs) => xs
   .reduce((acc, x) => acc.through(ap(x)), h.of(f))
 

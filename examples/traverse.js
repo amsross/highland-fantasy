@@ -1,4 +1,4 @@
-const { deepEqual } = require('assert')
+const { deepStrictEqual } = require('assert')
 const h = require('highland')
 const { traverse } = require('../index')
 
@@ -24,4 +24,4 @@ h.of({ home: 1, away: 2 })
   .reduce1((x, y) => Object.assign({}, x, y))
   .tap(() => console.timeEnd('traverse'))
   .tap(log('traverse'))
-  .each(xs => deepEqual(xs, { home: 1, away: 2 }))
+  .each(xs => deepStrictEqual(xs, { home: 1, away: 2 }))

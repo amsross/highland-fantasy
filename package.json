@@ -11,13 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "highland": "^3.0.0-beta.5"
+    "highland": "^2.13.0"
   },
   "devDependencies": {
-    "greenkeeper-lockfile": "^1.13.2",
-    "nodemon": "^1.15.0",
-    "standard": "^11.0.0",
+    "greenkeeper-lockfile": "^1.15.1",
+    "nodemon": "^1.18.4",
+    "standard": "^12.0.1",
     "tap-spec": "^5.0.0",
-    "tape": "^4.8.0"
+    "tape": "^4.9.1"
   }
 }

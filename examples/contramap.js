@@ -1,4 +1,4 @@
-const { deepEqual } = require('assert')
+const { deepStrictEqual } = require('assert')
 const h = require('highland')
 const { ap, contramap } = require('../index')
 
@@ -10,7 +10,7 @@ h.of(x => x % 2 === 0)
   .through(ap(h([ [ 0, 0 ], [ 0 ] ])))
   .collect()
   .tap(log('x % 2 === 0'))
-  .each(xs => deepEqual(xs, [ true, false ]))
+  .each(xs => deepStrictEqual(xs, [ true, false ]))
 
 const toUpperCase = x => x.toUpperCase()
 const split = str => x => x.split(str)
@@ -25,7 +25,7 @@ h.of(x => x === 'HELLO')
   .through(ap(h([ 'olleh', 'tnereffid' ])))
   .collect()
   .tap(log('x === HELLO'))
-  .each(xs => deepEqual(xs, [ true, false ]))
+  .each(xs => deepStrictEqual(xs, [ true, false ]))
 
 const add = y => x => x + y
 const times = y => x => x * y
@@ -36,4 +36,4 @@ h.of(x => x === 5)
   .through(ap(h([ 1, 3 ])))
   .collect()
   .tap(log('x === 5'))
-  .each(xs => deepEqual(xs, [ true, false ]))
+  .each(xs => deepStrictEqual(xs, [ true, false ]))

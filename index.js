@@ -21,7 +21,7 @@ const ap = a => u => h([
 // Traversable
 // traverse :: Applicative f, Traversable t => t a ~> (TypeRep f, a -> f b) -> f (t b)
 const traverse = (of, f) => xs => xs
-  .reduce((acc, x) => lift(append)(f(x), acc), of([]))
+  .reduce(of([]), (acc, x) => lift(append)(f(x), acc))
   .sequence()
 
 // append :: Semigroup a => a -> a -> a

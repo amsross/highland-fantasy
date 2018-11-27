@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "greenkeeper-lockfile": "^1.15.1",
-    "nodemon": "^1.18.4",
+    "nodemon": "^1.18.7",
     "standard": "^12.0.1",
     "tap-spec": "^5.0.0",
     "tape": "^4.9.1"
